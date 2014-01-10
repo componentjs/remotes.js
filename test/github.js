@@ -1,0 +1,95 @@
+var co = require('co')
+var fs = require('fs')
+var tmpdir = require('os').tmpdir()
+var path = require('path')
+var rimraf = require('rimraf')
+
+var Remote = require('..').github
+var remote = new Remote()
+
+describe('GitHub Remote', function () {
+  describe('.getVersions()', function () {
+    it('should get all versions in descending order', co(function* () {
+      var versions = yield* remote.getVersions('component/emitter')
+      versions.should.include('1.1.1')
+    }))
+
+    it('should work with versions that start with v', co(function* () {
+      var versions = yield* remote.getVersions('remy/nodemon')
+      versions.should.include('v1.0.7')
+    }))
+
+    it('should cache results', co(function* () {
+      var versions = yield* remote.getVersions('component/clickable')
+      var versions2 = yield* remote.getVersions('component/clickable')
+      versions.should.equal(versions2)
+    }))
+  })
+
+  describe('.getJSON()', function () {
+    it('should get the JSON of a tag', co(function* () {
+      var json = yield* remote.getJSON('component/emitter', '1.1.1')
+      json.version.should.equal('1.1.1')
+    }))
+
+    it('should get the JSON of a branch', co(function* () {
+      var json = yield* remote.getJSON('component/emitter', 'master')
+      json.name.should.equal('emitter')
+    }))
+
+    it('should resolve redirects', co(function* () {
+      var json = yield* remote.getJSON('jonathanong/clickable', '0.0.4')
+      json.name.should.equal('clickable')
+      json.repo.should.equal('component/clickable')
+    }))
+
+    it('should cache results', co(function* () {
+      var json = yield* remote.getJSON('component/domify', 'master')
+      var json2 = yield* remote.getJSON('component/domify', 'master')
+      json.should.equal(json2)
+    }))
+  })
+
+  describe('.getTree()', function () {
+    it('should get the tree of a release', co(function* () {
+      var tree = yield* remote.getTree('component/emitter', '1.1.1')
+      tree.some(function (obj) {
+        return obj.path === 'component.json' && obj.sha
+      }).should.be.ok
+    }))
+
+    it('should cache results', co(function* () {
+      var json = yield* remote.getTree('component/domify', 'master')
+      var json2 = yield* remote.getTree('component/domify', 'master')
+      json.should.equal(json2)
+    }))
+  })
+
+  describe('.getFile()', function () {
+    it('should get a file', co(function* () {
+      yield* remote.getFile('component/domify', '1.2.0', {
+        path: 'History.md'
+      }, tmpdir)
+      fs.statSync(path.join(tmpdir, 'History.md'))
+      fs.unlinkSync(path.join(tmpdir, 'History.md'))
+    }))
+  })
+
+  describe('.getFiles()', function () {
+    it('should get a list of files', co(function* () {
+      var dest = path.join(tmpdir, 'lkasjdf')
+      try {
+        fs.mkdirSync(dest)
+      } catch (err) {}
+      yield* remote.getFiles('component/domify', '1.2.0', [{
+        path: 'History.md'
+      }, {
+        path: "Readme.md"
+      }], dest)
+      fs.statSync(dest)
+      fs.statSync(path.join(dest, 'History.md'))
+      fs.statSync(path.join(dest, 'Readme.md'))
+      rimraf.sync(dest)
+    }))
+  })
+})

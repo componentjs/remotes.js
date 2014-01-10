@@ -1,0 +1,41 @@
+{
+  "name": "remotes",
+  "description": "Normalize remote end points",
+  "version": "0.0.0",
+  "author": {
+    "name": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "twitter": "https://twitter.com/jongleberry"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/component/remotes.js.git"
+  },
+  "bugs": {
+    "mail": "me@jongleberry.com",
+    "url": "https://github.com/component/remotes.js/issues"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "graceful-fs": "~2.0.1",
+    "semver": "~2.2.1",
+    "cogent": "~0.3.4",
+    "archan": "~0.4.0",
+    "mkdirp": "~0.3.5",
+    "rimraf": "~2.2.5"
+  },
+  "devDependencies": {
+    "co": "^3",
+    "mocha": "^1.17",
+    "should": "^2.1",
+    "regenerator": "~0.3.4"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "engines": {
+    "node": ">= 0.11.4"
+  }
+}
