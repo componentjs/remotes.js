@@ -48,6 +48,11 @@ describe('GitHub Remote', function () {
       var json2 = yield* remote.getJSON('component/domify', 'master')
       json.should.equal(json2)
     }))
+
+    it('should fix incorrect component.json versions', co(function* () {
+      var json = yield* remote.getJSON('chjj/marked', 'v0.3.0')
+      json.version.should.equal('0.3.0')
+    }))
   })
 
   describe('.getTree()', function () {

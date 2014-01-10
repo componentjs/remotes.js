@@ -26,8 +26,12 @@ Right now in component, we set `remotes: []`. Ideally, this repo will allow you 
 var remotes = require('remotes')
 
 var controller = remotes()
-controller.use(remotes.github)
-controller.use(remotes.bitbucket)
+controller.use(remotes.github({
+  auth: 'jonathanong:password'
+}))
+controller.use(remotes.bitbucket({
+  auth: 'jonathanong:password'
+}))
 
 // then actually querying the remotes will check each, one by one
 co(function* () {
@@ -45,6 +49,7 @@ A base Constructor to extend any additional remotes.
 Any already constructed remotes. The current remotes are:
 
 - `remotes.github`
+- `remotes.local` - use downloaded components
 
 ## Remote.extend(Child)
 
