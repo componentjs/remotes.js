@@ -1,57 +1,40 @@
 # Remotes.js [![Build Status](https://travis-ci.org/component/remotes.js.png)](https://travis-ci.org/component/remotes.js)
 
-The goal of this repo is to normalize different remote endpoints for Component into a unified API. Currently, only GitHub is supported.
+The goal of this repo is to normalize different remote endpoints for Component into a unified API. You can also create your own remote endpoints this way instead of shoehorning different APIs into a JSON file. This also handles versions and git trees, which is a little more complicated than just github raw.
 
 Example:
 
 ```js
-var remotes = require('remotes')
-var github = new remotes.GitHub({
+var Remotes = require('remotes')
+var remotes = Remotes()
+remotes.use(new Remotes.GitHub({
   auth: 'jonathanong:password'
-})
+}))
+remotes.use(new Remotes.Local())
 
 co(function* () {
-  var versions = yield* github.getVersions('component/emitter')
+  var remote = yield* remotes.resolve('component/emitter')
+  var versions = yield* remote.getVersions('component/emitter')
   // do stuff with the versions
 })
 ```
 
 ## new Remotes()
 
-NOT IMPLEMENTED!
+See the docs on `remotes`.
 
-Right now in component, we set `remotes: []`. Ideally, this repo will allow you to create a set of remotes, then query this set. Something like:
+## Remotes.Remote
 
-```js
-var remotes = require('remotes')
+See the docs on `remote`.
 
-var controller = remotes()
-controller.use(remotes.github({
-  auth: 'jonathanong:password'
-}))
-controller.use(remotes.bitbucket({
-  auth: 'jonathanong:password'
-}))
-
-// then actually querying the remotes will check each, one by one
-co(function* () {
-  var versions = yield* controller.getVersions('component/emitter')
-  // do stuff with the versions
-})
-```
-
-## remotes.Remote
-
-A base Constructor to extend any additional remotes.
-
-## remotes[remote]
+## Remotes[remote]
 
 Any already constructed remotes. The current remotes are:
 
 - `remotes.github`
 - `remotes.local` - use downloaded components
 
-## Remote.extend(Child)
+## Remotes.extend(Child)
 
 Extend a new `Remote` class with the current Remote. Example:
 
@@ -70,40 +53,6 @@ Github.prototype.something = function () {
 }
 
 ```
-
-## var remote = new remote.Remote([options])
-
-Creates a new remote instance. Some options are:
-
-- `concurrency` <5> - maximum number of concurrent downloads per `.getFiles`
-
-Other options are passed to [cogent](https://github.com/cojs/cogent#var-response--yield-requesturl-options), so this is where you set your `auth`, `proxy`, etc. on a per-remote basis.
-
-## var versions[] = yield* remote.getVersions(repo)
-
-Repo is of the form `<username>/<project>`. This will return all the semantically versioned releases in the repository. This will not normalize versions (i.e. strip leading `v`s). It will return an array of strings in descending versions.
-
-## var json = yield* remote.getJSON(repo, ref)
-
-Returns the `component.json` of a repo's reference.
-
-## var tree = yield* remote.getTree(repo, ref)
-
-Returns the list of files in the repository and reference. Will return a list of objects with properties:
-
-- `path` - file path in the repo
-- `sha` - sha1 check sum
-- `fize` - file byte length
-
-## var filename = yield* remote.getFile(repo, ref, obj, folder)
-
-Downloads a file `obj` to a destination `folder` from a repository's reference. `obj` should be an object as returned from the `tree`. You can always just do `{path: ''}` if you don't care to download the tree.
-
-Returns the abolute path of the resulting file.
-
-## yield* remote.getFiles(repo, ref, objs, folder)
-
-Downloads all the files in `objs` to the folder.
 
 ## License
 
