@@ -68,6 +68,13 @@ describe('GitHub Remote', function () {
       var json2 = yield* remote.getTree('component/domify', 'master')
       json.should.equal(json2)
     }))
+
+    it('should recursively get items', co(function* () {
+      var tree = yield* remote.getTree('component/emitter', '1.1.1')
+      tree.some(function (obj) {
+        return obj.path === 'test/emitter.js'
+      }).should.be.ok
+    }))
   })
 
   describe('.getFile()', function () {
