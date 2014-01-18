@@ -1,6 +1,8 @@
-## var remotes = new Remotes()
+## var remotes = new Remotes([remotes], [options])
 
 Returns an new `remotes` instance for resolving multiple remotes.
+
+`remotes` is an optional array of remote names. This is a shortcut for `.use(new Remote[name])`. The same `options` will be passed to all the remote constructors.
 
 ### remotes.use(remote)
 
@@ -21,7 +23,7 @@ var remote = yield* remotes.resolve(['github', 'gitorious'], 'component/emitter'
 // remote will be the `github` remote instance.
 ```
 
-`remotes` is a list of `Remote` names, not the instances themselves. By default `reference` is `master`.
+`remotes` is a list of `Remote` names, not the instances themselves. This allows you to check a subset of remotes in any order you'd like. By default `reference` is `master`.
 
 ### var remote = yield* remotes.resolve(repo, [reference])
 

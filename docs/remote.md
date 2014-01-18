@@ -6,7 +6,7 @@ A base Constructor to extend any additional remotes. Like node's stream API, you
 
 - `concurrency` <5> - maximum number of concurrent downloads per `.getFiles`
 
-Other options are passed to [cogent](https://github.com/cojs/cogent#var-response--yield-requesturl-options), so this is where you set your `auth`, `proxy`, etc. on a per-remote basis.
+Other options are passed to [cogent](https://github.com/cojs/cogent#var-response--yield-requesturl-options), so this is where you set your `auth`, `netrc`, `proxy`, etc. on a per-remote basis.
 
 To inherit fromt his Remote, use `Remote.extend(Child)`.
 

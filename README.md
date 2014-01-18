@@ -19,13 +19,26 @@ co(function* () {
 })
 ```
 
+A shortcut for the above is:
+
+```js
+var remotes = require('remotes')([
+  'github',
+  'local'
+], {
+  netrc: ''
+})
+```
+
+Where `netrc` points to a `netrc` file. See [netrc](https://github.com/CamShaft/netrc).
+
 ## new Remotes()
 
-See the docs on `remotes`.
+See the docs on [remotes](https://github.com/component/remotes.js/blob/master/docs/remotes.md).
 
 ## Remotes.Remote
 
-See the docs on `remote`.
+See the docs on [remote](https://github.com/component/remotes.js/blob/master/docs/remote.md).
 
 ## Remotes[remote]
 
@@ -33,6 +46,8 @@ Any already constructed remotes. The current remotes are:
 
 - `remotes.github`
 - `remotes.local` - use downloaded components
+
+The list of names can be found at `Remotes.remotes`. These are also aliased with their title-cased versions.
 
 ## Remotes.extend(Child)
 
@@ -51,8 +66,9 @@ Remote.extend(GitHub)
 Github.prototype.something = function () {
 
 }
-
 ```
+
+See the [github remote](https://github.com/component/remotes.js/tree/master/lib/remotes/github.js) as an implementation example.
 
 ## License
 
