@@ -1,5 +1,5 @@
 try {
-  module.exports = require('./lib/remotes')
+  module.exports = require('./lib')
 } catch (err) {
-  module.exports = require('./build/remotes')
+  module.exports = require('./build')
 }
