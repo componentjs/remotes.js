@@ -29,10 +29,11 @@
   "devDependencies": {
     "mocha": "^1.17",
     "should": "^3.0",
+    "gnode": "~0.0.6",
     "regenerator": "~0.3.4"
   },
   "scripts": {
-    "test": "make test",
+    "test": "NODE=gnode make test",
     "prepublish": "make clean build"
   },
   "engines": {
