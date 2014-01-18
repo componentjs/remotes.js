@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "mocha": "^1.17",
-    "should": "^2.1",
+    "should": "^3.0",
     "regenerator": "~0.3.4"
   },
   "scripts": {
