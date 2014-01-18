@@ -6,6 +6,22 @@ var github = new Remotes.GitHub
 var local = new Remotes.Local
 
 describe('Remotes', function () {
+  describe('when given an array of remotes', function () {
+    it('should initiate those remote instances', function () {
+      var remote = Remotes(['local', 'github'])
+      assert.ok(remote.remote.local)
+      assert.ok(remote.remote.github)
+    })
+
+    describe('when one remote is not valid', function () {
+      it('should throw', function () {
+        assert.throws(function () {
+          var remote = Remotes(['klajsdf'])
+        })
+      })
+    })
+  })
+
   describe('when using no remotes', function () {
     var remote = Remotes()
 
