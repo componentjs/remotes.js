@@ -8,7 +8,7 @@ build:
 	@$(MAKE) $(BUILD)
 
 build/%.js: lib/%.js
-	@$(BIN)regenerator --include-runtime $< > $@
+	@$(BIN)regenerator $< > $@
 
 clean:
 	@rm -rf build
