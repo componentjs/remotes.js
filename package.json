@@ -18,6 +18,7 @@
     "url": "https://github.com/component/remotes.js/issues"
   },
   "dependencies": {
+    "debug": "*",
     "graceful-fs": "~2.0.1",
     "semver": "~2.2.1",
     "cogent": "~0.3.4",

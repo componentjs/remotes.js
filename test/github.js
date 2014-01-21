@@ -8,6 +8,17 @@ var Remote = require('..').github
 var remote = new Remote()
 
 describe('GitHub Remote', function () {
+  describe('.resolve()', function () {
+    it('should resolve itself', co(function* () {
+      var github = yield* remote.resolve('component/emitter')
+      github.should.equal(remote)
+    }))
+
+    it('should not resolve itself if it is not in the list of remotes', co(function* () {
+      var github = yield* remote.resolve(['local'], 'component/emitter')
+      ;(github == null).should.be.ok
+    }))
+  })
   describe('.getVersions()', function () {
     it('should get all versions in descending order', co(function* () {
       var versions = yield* remote.getVersions('component/emitter')
@@ -79,6 +90,13 @@ describe('GitHub Remote', function () {
       tree.some(function (obj) {
         return obj.path === 'test/emitter.js'
       }).should.be.ok
+    }))
+
+    it('should only return blobs', co(function* () {
+      var tree = yield* remote.getTree('component/emitter', '1.1.1')
+      tree.some(function (obj) {
+        return obj.type !== 'blob'
+      }).should.not.be.ok
     }))
   })
 

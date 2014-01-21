@@ -1,11 +1,21 @@
 var co = require('co')
+var fs = require('fs')
+var path = require('path')
 var assert = require('assert')
+var mkdirp = require('mkdirp')
+var rimraf = require('rimraf')
 
 var Remotes = require('..')
 var github = new Remotes.GitHub
 var local = new Remotes.Local
 
+var components = path.join(process.cwd(), 'components')
+
 describe('Remotes', function () {
+  it('should delete the components folder', function (done) {
+    rimraf(components, done)
+  })
+
   describe('when given an array of remotes', function () {
     it('should initiate those remote instances', function () {
       var remote = Remotes(['local', 'github'])
@@ -52,6 +62,15 @@ describe('Remotes', function () {
         assert.ok(!r)
       }))
     })
+
+    it('should install stuff', co(function* () {
+      var g = yield* remote.resolve('component/emitter', '1.1.1')
+      g.should.equal(github)
+      var tree = yield* github.getTree('component/emitter', '1.1.1')
+      var out = path.join(components, 'component-emitter-1.1.1')
+      yield* github.getFiles('component/emitter', '1.1.1', tree, out)
+      fs.statSync(path.join(out, 'component.json'))
+    }))
   })
 
   describe('when using multiple remotes', function () {
@@ -59,7 +78,7 @@ describe('Remotes', function () {
     remote.use(local)
     remote.use(github)
 
-    describe('when remote matches', function () {
+    describe('when a remote matches', function () {
       it('should return that remote', co(function* () {
         var r = yield* remote.resolve('component/emitter', '1.0.0')
         r.should.equal(github)
@@ -71,6 +90,30 @@ describe('Remotes', function () {
         r = yield* remote.resolve('kljalsdkfjlaksjdflkajsdf')
         assert.ok(!r)
       }))
+    })
+
+    describe('when the component is already downloaded', function () {
+      describe('when given versions and no remotes', function () {
+        it('should resolve versions normally', co(function* () {
+          var r = yield* remote.resolve('component/emitter', '1.0.0')
+          r.should.equal(github)
+
+          r = yield* remote.resolve('component/emitter', '1.1.1')
+          r.should.equal(local)
+        }))
+      })
+
+      describe('when given no versions and no remotes', function () {
+        it('should resolve to local if a version exists', co(function* () {
+          var r = yield* remote.resolve('component/emitter')
+          r.should.equal(local)
+        }))
+
+        it('should resolve to github if a version does not exist', co(function* () {
+          var r = yield* remote.resolve('component/domify')
+          r.should.equal(github)
+        }))
+      })
     })
   })
 })
