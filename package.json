@@ -1,7 +1,7 @@
 {
   "name": "remotes",
   "description": "Normalize remote end points",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
