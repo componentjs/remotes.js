@@ -25,7 +25,8 @@
     "chanel": "~1.0.2",
     "mkdirp": "~0.3.5",
     "rimraf": "~2.2.5",
-    "co": "^3"
+    "co": "^3",
+    "cp": "~0.1.1"
   },
   "devDependencies": {
     "mocha": "^1.17",
