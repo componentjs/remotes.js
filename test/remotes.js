@@ -66,9 +66,9 @@ describe('Remotes', function () {
     it('should install stuff', co(function* () {
       var g = yield* remote.resolve('component/emitter', '1.1.1')
       g.should.equal(github)
-      var tree = yield* github.Tree('component/emitter', '1.1.1')
+      var tree = yield* github.tree('component/emitter', '1.1.1')
       var out = path.join(components, 'component-emitter-1.1.1')
-      yield* github.Files('component/emitter', '1.1.1', tree, out)
+      yield* github.files('component/emitter', '1.1.1', tree, out)
       fs.statSync(path.join(out, 'component.json'))
     }))
   })
