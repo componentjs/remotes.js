@@ -19,6 +19,7 @@ describe('GitHub Remote', function () {
       ;(github == null).should.be.ok
     }))
   })
+
   describe('.getVersions()', function () {
     it('should get all versions in descending order', co(function* () {
       var versions = yield* remote.getVersions('component/emitter')
@@ -34,6 +35,11 @@ describe('GitHub Remote', function () {
       var versions = yield* remote.getVersions('component/clickable')
       var versions2 = yield* remote.getVersions('component/clickable')
       versions.should.equal(versions2)
+    }))
+
+    it('should not crash on wierd versions', co(function* () {
+      var versions = yield* remote.getVersions('chjj/marked');
+      versions.should.not.containEql('v0.2.5c');
     }))
   })
 
