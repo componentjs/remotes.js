@@ -88,6 +88,11 @@ describe('Remotes', function () {
           r = yield* remote.resolve('component/a', '1.2.3')
           r.should.equal(local)
         }))
+
+        it('should ignore unlisted remotes', co(function* () {
+          var r = yield* remote.resolve(['local'], 'component/emitter', '1.0.0')
+          assert(!r)
+        }))
       })
 
       describe('when given no versions and no remotes', function () {
@@ -99,6 +104,11 @@ describe('Remotes', function () {
         it('should resolve to github if a version does not exist', co(function* () {
           var r = yield* remote.resolve('component/domify')
           r.should.equal(github)
+        }))
+
+        it('should ignore unlisted remotes', co(function* () {
+          var r = yield* remote.resolve(['local'], 'component/domify')
+          assert(!r)
         }))
       })
     })

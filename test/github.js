@@ -102,4 +102,19 @@ describe('GitHub Remote', function () {
       }).should.not.be.ok
     }))
   })
+
+  describe('.file()', function () {
+    it('should return an array', co(function* () {
+      var files = remote.file('component/emitter', '1.1.1', 'component.json');
+      files.length.should.be.ok;
+    }))
+  })
+
+  describe('.archive()', function () {
+    it('should return an object', co(function* () {
+      var archive = remote.archive('component/emitter');
+      archive.zip.length.should.be.ok;
+      archive.tar.length.should.be.ok;
+    }))
+  })
 })
