@@ -3,7 +3,8 @@ var path = require('path')
 
 var Remote = require('..').local
 var remote = new Remote({
-  root: path.join(__dirname, 'components')
+  root: __dirname,
+  out: 'components'
 })
 
 describe('Local Remote', function () {

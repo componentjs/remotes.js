@@ -5,7 +5,8 @@ var assert = require('assert')
 var Remotes = require('..')
 var github = new Remotes.GitHub
 var local = new Remotes.Local({
-  root: path.join(__dirname, 'components')
+  root: __dirname,
+  out: 'components'
 })
 
 describe('Remotes', function () {
@@ -74,7 +75,10 @@ describe('Remotes', function () {
 
     describe('when no remote matches', function () {
       it('should return null', co(function* () {
-        r = yield* remote.resolve('kljalsdkfjlaksjdflkajsdf')
+        var r = yield* remote.resolve('kljalsdkfjlaksjdflkajsdf')
+        assert.ok(!r)
+
+        var r = yield* remote.resolve('kljalsdkfjlaksjdflkajsdf/alksdjfklajsdf')
         assert.ok(!r)
       }))
     })
