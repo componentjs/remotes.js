@@ -73,6 +73,16 @@ describe('Remotes', function () {
       }))
     })
 
+    describe('when a remote matches and no `remotes` argument is supplied', function () {
+      it('should return that remote', co(function* () {
+        var r = yield* remote.resolve(null, 'component/emitter', '1.0.0')
+        r.should.equal(github)
+
+        var r = yield* remote.resolve(null, 'component/a', '1.2.3')
+        r.should.equal(local)
+      }))
+    })
+
     describe('when no remote matches', function () {
       it('should return null', co(function* () {
         var r = yield* remote.resolve('kljalsdkfjlaksjdflkajsdf')
