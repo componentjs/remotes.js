@@ -1,20 +1,24 @@
 # Remotes.js [![Build Status](https://travis-ci.org/component/remotes.js.png)](https://travis-ci.org/component/remotes.js)
 
-The goal of this repo is to normalize different remote endpoints for Component into a unified API. You can also create your own remote endpoints this way instead of shoehorning different APIs into a JSON file. This also handles versions and git trees, which is a little more complicated than just github raw.
+The goal of this repo is to normalize different remote endpoints for Component into a unified API. You can also create your own remote endpoints instead of shoehorning different APIs into a JSON file. This also handles versions and git trees, which is a little more complicated than just github raw.
 
 Example:
 
 ```js
-var Remotes = require('remotes')
-var remotes = Remotes()
+var Remotes = require('remotes');
+var remotes = Remotes();
 remotes.use(new Remotes.GitHub({
   auth: 'jonathanong:password'
-}))
-remotes.use(new Remotes.Local())
+}));
+remotes.use(new Remotes.Local({
+  dir: 'components'
+}));
 
 co(function* () {
-  var remote = yield* remotes.resolve('component/emitter')
-  var versions = yield* remote.getVersions('component/emitter')
+  // get the correct remote from a list of remotes
+  var remote = yield* remotes.resolve('component/emitter');
+  // return all the versions this remote has
+  var versions = yield* remote.versions('component/emitter');
   // do stuff with the versions
 })
 ```
@@ -32,28 +36,90 @@ var remotes = require('remotes')([
 
 Where `netrc` points to a `netrc` file. See [netrc](https://github.com/CamShaft/netrc).
 
-## new Remotes()
+## Using Remotes
 
-See the docs on [remotes](https://github.com/component/remotes.js/blob/master/docs/remotes.md).
+### var remotes = new Remotes([names], [options])
 
-## Remotes.Remote
+Returns a group of remotes. `names` is a list of redefined remotes. Note that order matters.
 
-See the docs on [remote](https://github.com/component/remotes.js/blob/master/docs/remote.md).
-
-## Remotes[remote]
-
-Any already constructed remotes. The current remotes are:
+The current remotes are:
 
 - `remotes.github`
 - `remotes.local` - use downloaded components
 
 The list of names can be found at `Remotes.remotes`. These are also aliased with their title-cased versions.
 
-## Remotes.extend(Child)
+Some options are:
+
+- `netrc` - for [netrc](https://github.com/CamShaft/netrc)
+- `dir` - local `components` path. Defaults to `process.cwd() + '/components'
+
+### remotes.use(remote)
+
+Add a remote to this list of remotes. Note that order matters.
+
+### var remote = yield* remotes.resolve([names], repo, [ref])
+
+Returns the first remote with `<repo>@<ref>` from the list of remotes. You may optionally pass `names`, a list of remote names, instead of searching all the remotes or to search in a different order.
+
+### Authentication
+
+Some remotes, such as GitHub, require authentication. We suggest you use [netrc](https://github.com/CamShaft/netrc).
+
+For Github, you need to supply you username and password for the `api.github.com` host. You may also set the `GITHUB_USERNAME` and `GITHUB_PASSWORD` environmental variables.
+
+## Using a Remote
+
+### remote.name
+
+The name of the remote.
+
+### var json = yield* remote.json(repo, [ref])
+
+Return the `component.json` of a component from this remote.
+
+### var versions = yield* remote.versions(repo)
+
+Get all valid semver version of this remote.
+
+### var tree = yield* remote.tree(repo, ref)
+
+Return the git tree of this repo. Will return a list of objects with properties:
+
+- `path` - file path in the repo
+- `sha` - sha1 check sum
+- `fize` - file byte length
+
+### var urls = remote.file(repo, ref, path)
+
+Return an array of absolute URLs of where to download this component's file `path`.
+
+### var archive = remote.archive(repo, ref)
+
+Return an object containing absolute URLs of where to download this repo's archive. `archive` is of the format `archive[format] = urls[]`. Example:
+
+```js
+{
+  tar: [
+    'https://api.github.com/repos/component/emitter/tarball/master',
+  ],
+  zip: [
+    'https://api.github.com/repos/component/emitter/zipball/master',
+  ]
+}
+```
+
+## Creating your own Remote
+
+You may create your own remote. See the [remotes](https://github.com/component/remotes.js/tree/master/lib/remotes/github.js) for implementation examples.
+
+### Remotes.Remote.extend(Child)
 
 Extend a new `Remote` class with the current Remote. Example:
 
 ```js
+var Remote = require('remotes').Remote;
+
 function GitHub(options) {
   options = options || {}
   Remote.call(this, options)
@@ -68,7 +134,17 @@ Github.prototype.something = function () {
 }
 ```
 
-See the [github remote](https://github.com/component/remotes.js/tree/master/lib/remotes/github.js) as an implementation example.
+### Implementable Functions
+
+The following properties must be implemented. Note that if you want a remote to be skipped, simply return `null`.
+
+- `.name`
+- `._json()`
+- `._versions()`
+- `._tree()`
+- `.file()`
+- `.archive()`
+
 
 ## License
 
