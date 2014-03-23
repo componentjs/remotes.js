@@ -22,7 +22,7 @@
     "generator-supported": "~0.0.1",
     "graceful-fs": "^2.0.2",
     "semver": "^2.2.1",
-    "cogent": "~0.3.12",
+    "cogent": "~0.4.0",
     "co": "^3"
   },
   "devDependencies": {
