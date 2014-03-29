@@ -1,17 +1,19 @@
 # Remotes.js [![Build Status](https://travis-ci.org/component/remotes.js.png)](https://travis-ci.org/component/remotes.js)
 
-The goal of this repo is to normalize different remote endpoints for Component into a unified API. You can also create your own remote endpoints instead of shoehorning different APIs into a JSON file. This also handles versions and git trees, which is a little more complicated than just github raw.
+The goal of this repo is to normalize different remote endpoints for Component into a unified API.
+You can also create your own remote endpoints instead of shoehorning different APIs into a JSON file.
+This also handles versions and git trees, which is a little more complicated than just github raw.
 
 Example:
 
 ```js
 var Remotes = require('remotes');
 var remotes = Remotes();
-remotes.use(new Remotes.GitHub({
-  auth: 'jonathanong:password'
-}));
 remotes.use(new Remotes.Local({
   dir: 'components'
+}));
+remotes.use(new Remotes.GitHub({
+  auth: 'jonathanong:password'
 }));
 
 co(function* () {
@@ -26,11 +28,10 @@ co(function* () {
 A shortcut for the above is:
 
 ```js
-var remotes = require('remotes')([
-  'github',
-  'local'
-], {
-  netrc: ''
+var remotes = require('remotes')(['github'], {
+  local: true,
+  dir: 'components',
+  netrc: '',
 })
 ```
 
@@ -53,6 +54,7 @@ Some options are:
 
 - `netrc` - for [netrc](https://github.com/CamShaft/netrc)
 - `dir` - local `components` path. Defaults to `process.cwd() + '/components'
+- `local` - use the `local` component.
 
 ### remotes.use(remote)
 

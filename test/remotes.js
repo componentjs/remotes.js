@@ -127,4 +127,16 @@ describe('Remotes', function () {
       })
     })
   })
+
+  describe('options', function () {
+    describe('local: true', function () {
+      it('should use the local remote', function () {
+        var remote = Remotes(['github'], {
+          local: true,
+        });
+
+        remote.remote.local.should.be.ok;
+      })
+    })
+  })
 })
