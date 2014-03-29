@@ -38,6 +38,15 @@ describe('GitHub Remote', function () {
       var versions = yield* remote.versions('chjj/marked');
       versions.should.not.include('v0.2.5c');
     }))
+
+    it('should throw if the repository doesn\'t exist', co(function* () {
+      try {
+        yield* remote.versions('jonathanong/clickable');
+        throw new Error();
+      } catch (err) {
+        err.message.should.include('check that this repository still exists');
+      }
+    }))
   })
 
   describe('.json()', function () {
