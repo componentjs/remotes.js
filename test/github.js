@@ -60,15 +60,15 @@ describe('GitHub Remote', function () {
       json.name.should.equal('emitter')
     }))
 
-    it('should add the .repo property if missing', co(function* () {
+    it('should add the .repository property if missing', co(function* () {
       var json = yield* remote.json('component/indexof', '0.0.2')
-      json.repo.should.equal('component/indexof')
+      json.repository.should.equal('component/indexof')
     }))
 
     it('should resolve redirects', co(function* () {
       var json = yield* remote.json('jonathanong/clickable', '0.0.4')
       json.name.should.equal('clickable')
-      json.repo.should.equal('component/clickable')
+      json.repository.should.equal('component/clickable')
     }))
 
     it('should cache results', co(function* () {
