@@ -5,8 +5,7 @@ var assert = require('assert')
 var Remotes = require('..')
 var github = new Remotes.GitHub
 var local = new Remotes.Local({
-  root: __dirname,
-  out: 'components'
+  out: __dirname + '/components'
 })
 
 describe('Remotes', function () {
