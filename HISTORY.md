@@ -1,4 +1,9 @@
 
+1.0.2 / 2014-04-02
+==================
+
+- fix logic issues with the previous retry command
+
 1.0.1 / 2014-04-02
 ==================
 
