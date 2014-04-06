@@ -3,8 +3,8 @@ var path = require('path')
 var assert = require('assert')
 
 var Remotes = require('..')
-var github = new Remotes.GitHub
-var local = new Remotes.Local({
+var github = new Remotes.github
+var local = new Remotes.local({
   out: __dirname + '/components'
 })
 
