@@ -1,4 +1,10 @@
 
+1.1.0 / 2014-04-06
+==================
+
+- remote title-cased names of remotes
+- add bitbucket remote (@netpoetica)
+
 1.0.2 / 2014-04-02
 ==================
 

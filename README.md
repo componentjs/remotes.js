@@ -46,9 +46,10 @@ Returns a group of remotes. `names` is a list of redefined remotes. Note that or
 The current remotes are:
 
 - `remotes.github`
+- `remotes.bitbucket`
 - `remotes.local` - use downloaded components
 
-The list of names can be found at `Remotes.remotes`. These are also aliased with their title-cased versions.
+The list of names can be found at `Remotes.remotes`.
 
 Some options are:
 
@@ -68,7 +69,9 @@ Returns the first remote with `<repo>@<ref>` from the list of remotes. You may o
 
 Some remotes, such as GitHub, require authentication. We suggest you use [netrc](https://github.com/CamShaft/netrc).
 
-For Github, you need to supply you username and password for the `api.github.com` host. You may also set the `GITHUB_USERNAME` and `GITHUB_PASSWORD` environmental variables.
+For Github, you need to supply you username and password for the `api.github.com` host.
+You may also set the `GITHUB_USERNAME` and `GITHUB_PASSWORD` environmental variables.
+Similarly, for BitBucket, you set `BITBUCKET_USERNAME` and `BITBUCKET_PASSWORD`.
 
 ## Using a Remote
 
@@ -111,6 +114,14 @@ Return an object containing absolute URLs of where to download this repo's archi
 }
 ```
 
+## Remote Notes
+
+- Only `master` is supported as the default branch.
+
+### BitBucket
+
+- Git trees are not supported, so please don't use globs in your `component.json`s!
+
 ## Creating your own Remote
 
 You may create your own remote. See the [remotes](https://github.com/component/remotes.js/tree/master/lib/remotes/github.js) for implementation examples.
@@ -147,6 +158,8 @@ The following properties must be implemented. Note that if you want a remote to 
 - `.file()`
 - `.archive()`
 
+If a function is not supported, simply do not define it.
+For example, BitBucket does not support git trees, so `._tree()` is not defined.
 
 ## License
 
