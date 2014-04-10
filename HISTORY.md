@@ -1,4 +1,10 @@
 
+1.1.1 / 2014-04-07
+==================
+
+- fix each remote overwriting other remotes' options
+- add Remotes.defaults
+
 1.1.0 / 2014-04-06
 ==================
 
