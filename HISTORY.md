@@ -1,4 +1,9 @@
 
+1.1.3 / 2014-04-17
+==================
+
+- fix that annoying bitbucket malformed JSON error
+
 1.1.1 / 2014-04-07
 ==================
 
