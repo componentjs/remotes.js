@@ -9,6 +9,12 @@ var local = new Remotes.local({
 })
 
 describe('Remotes', function () {
+  describe('when no remotes satisfy', function () {
+    it('should not throw n shit', co(function* () {
+      var remotes = new Remotes(['github', 'bitbucket'])
+      var remote = yield* remotes.resolve('lkajsdlfjajklsdf/alkjlkjalskdjf')
+    }))
+  })
   describe('when given an array of remotes', function () {
     it('should initiate those remote instances', function () {
       var remote = Remotes(['local', 'github'])
