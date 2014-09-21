@@ -1,3 +1,8 @@
+1.1.5 / 2014-09-21
+==================
+
+- test with real http request for github API
+- show more infos about github rate limit in the console
 
 1.1.4 / 2014-04-26
 ==================
