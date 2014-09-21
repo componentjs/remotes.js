@@ -1,4 +1,4 @@
-# Remotes.js [![Build Status](https://travis-ci.org/component/remotes.js.png)](https://travis-ci.org/component/remotes.js)
+# Remotes.js [![Build Status](https://travis-ci.org/componentjs/remotes.js.png)](https://travis-ci.org/componentjs/remotes.js)
 
 The goal of this repo is to normalize different remote endpoints for Component into a unified API.
 You can also create your own remote endpoints instead of shoehorning different APIs into a JSON file.
