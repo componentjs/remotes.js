@@ -115,15 +115,18 @@ describe('GitHub Remote', function () {
   describe('.file()', function () {
     it('should return an array', co(function* () {
       var files = remote.file('component/emitter', '1.1.1', 'component.json');
-      files.length.should.be.ok;
+      var result = yield* remote.request(files[0], true);
+      result.res.statusCode.should.equal(200);
     }))
   })
 
   describe('.archive()', function () {
     it('should return an object', co(function* () {
       var archive = remote.archive('component/emitter');
-      archive.zip.length.should.be.ok;
-      archive.tar.length.should.be.ok;
+      var zipResult = yield* remote.request(archive.zip[0]);
+      var tarResult = yield* remote.request(archive.tar[0]);
+      zipResult.res.statusCode.should.equal(200);
+      tarResult.res.statusCode.should.equal(200);
     }))
   })
 })
