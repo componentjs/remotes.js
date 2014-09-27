@@ -7,7 +7,7 @@ This also handles versions and git trees, which is a little more complicated tha
 Example:
 
 ```js
-var Remotes = require('remotes');
+var Remotes = require('component-remotes');
 var remotes = Remotes();
 remotes.use(new Remotes.Local({
   dir: 'components'
@@ -28,7 +28,7 @@ co(function* () {
 A shortcut for the above is:
 
 ```js
-var remotes = require('remotes')(['github'], {
+var remotes = require('component-remotes')(['github'], {
   local: true,
   dir: 'components',
   netrc: '',
@@ -131,7 +131,7 @@ You may create your own remote. See the [remotes](https://github.com/component/r
 Extend a new `Remote` class with the current Remote. Example:
 
 ```js
-var Remote = require('remotes').Remote;
+var Remote = require('component-remotes').Remote;
 
 function GitHub(options) {
   options = options || {}
