@@ -1,5 +1,5 @@
 {
-  "name": "remotes",
+  "name": "component-remotes",
   "description": "Normalize remote end points",
   "version": "1.1.5",
   "author": {
