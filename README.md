@@ -35,7 +35,7 @@ var remotes = require('component-remotes')(['github'], {
 })
 ```
 
-Where `netrc` points to a `netrc` file. See [netrc](https://github.com/CamShaft/netrc).
+Where `netrc` points to a `netrc` file. See [camshaft/netrc](https://github.com/camshaft/netrc).
 
 ## Using Remotes
 
@@ -53,7 +53,7 @@ The list of names can be found at `Remotes.remotes`.
 
 Some options are:
 
-- `netrc` - for [netrc](https://github.com/CamShaft/netrc)
+- `netrc` - for [camshaft/netrc](https://github.com/camshaft/netrc)
 - `dir` - local `components` path. Defaults to `process.cwd() + '/components'
 - `local` - use the `local` component.
 
@@ -67,11 +67,9 @@ Returns the first remote with `<repo>@<ref>` from the list of remotes. You may o
 
 ### Authentication
 
-Some remotes, such as GitHub, require authentication. We suggest you use [netrc](https://github.com/CamShaft/netrc).
+Some remotes, such as GitHub, require authentication. If you want to use authentication in your own remote implementation, we suggest you use [camshaft/netrc](https://github.com/camshaft/netrc).
 
-For Github, you need to supply you username and password for the `api.github.com` host.
-You may also set the `GITHUB_USERNAME` and `GITHUB_PASSWORD` environmental variables.
-Similarly, for BitBucket, you set `BITBUCKET_USERNAME` and `BITBUCKET_PASSWORD`.
+You can see here how to [setup authentication](https://github.com/componentjs/guide/blob/master/changelogs/1.0.0.md#required-authentication).
 
 ## Using a Remote
 
