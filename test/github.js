@@ -39,9 +39,14 @@ describe('GitHub Remote', function () {
       versions.should.not.include('v0.2.5c');
     }))
 
-    it('should throw if the repository doesn\'t exist', co(function* () {
+    it('should resolve redirects if the repository was renamed', co(function* () {
+        var versions = yield* remote.versions('jonathanong/clickable');
+        versions.should.include('0.0.1')
+    }))
+
+    it('throw if the repository doesn\'t exist', co(function* () {
       try {
-        yield* remote.versions('jonathanong/clickable');
+        yield* remote.versions('jonathanong/alisudhlsdiuh');
         throw new Error();
       } catch (err) {
         err.message.should.include('check that this repository still exists');
