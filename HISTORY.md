@@ -1,3 +1,9 @@
+1.1.6 / 2014-10-21
+==================
+
+- check for redirects when a repo isn't there anymore via api.github.com
+- use fork of cogent with a fix for `options.redirects: 0`
+
 1.1.5 / 2014-09-21
 ==================
 
