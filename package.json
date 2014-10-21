@@ -1,7 +1,7 @@
 {
   "name": "component-remotes",
   "description": "Normalize remote end points",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -14,9 +14,10 @@
     "debug": "*",
     "generator-supported": "~0.0.1",
     "component-validator": "^1.0.0",
+    "component-consoler": "^2.0.0",
     "graceful-fs": "^2.0.2",
     "semver": "^2.2.1",
-    "cogent": "~0.4.0",
+    "cogent": "git://github.com/timaschew/cogent#fix-redirects",
     "co": "^3"
   },
   "devDependencies": {
