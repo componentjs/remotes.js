@@ -88,6 +88,7 @@ describe('Remotes', function () {
       }))
     })
 
+    // this test sometiems fails
     describe('when no remote matches', function () {
       it('should return null', co(function* () {
         var r = yield* remote.resolve('kljalsdkfjlaksjdflkajsdf')
