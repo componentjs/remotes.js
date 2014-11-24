@@ -88,8 +88,8 @@ describe('Remotes', function () {
       }))
     })
 
-    // this test sometiems fails
-    describe('when no remote matches', function () {
+    // this test fails in combination with the other tests, .only works!
+    describe('FIXME: when no remote matches', function () {
       it('should return null', co(function* () {
         var r = yield* remote.resolve('kljalsdkfjlaksjdflkajsdf')
         assert.ok(!r)
