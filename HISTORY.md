@@ -1,4 +1,6 @@
-1.1.7 / 2014-11-22
+
+
+1.1.8 / 2014-11-22
 ==================
 
 - if you run `component install <user/repo>` the latest tag will be checke, instead of the master branch [copmonent#611](https://github.com/componentjs/component/issues/611)
