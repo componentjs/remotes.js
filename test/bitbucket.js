@@ -42,12 +42,8 @@ describe('BitBucket Remote', function () {
     }))
 
     it('should throw if the repository doesn\'t exist', co(function* () {
-      try {
-        yield* remote.versions('netpoetica/component-easterbunny');
-        throw new Error();
-      } catch (err) {
-        err.message.should.include('check that this repository still exists');
-      }
+      var res = yield* remote.versions('netpoetica/component-easterbunny');
+      (res == null).should.true;
     }))
   })
 

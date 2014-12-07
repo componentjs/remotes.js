@@ -45,12 +45,8 @@ describe('GitHub Remote', function () {
     }))
 
     it('throw if the repository doesn\'t exist', co(function* () {
-      try {
-        yield* remote.versions('jonathanong/alisudhlsdiuh');
-        throw new Error();
-      } catch (err) {
-        err.message.should.include('check that this repository still exists');
-      }
+      var res = yield* remote.versions('jonathanong/alisudhlsdiuh');
+      (res == null).should.true;
     }))
   })
 
