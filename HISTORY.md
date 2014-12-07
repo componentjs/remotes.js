@@ -1,4 +1,6 @@
-
+1.1.9 / 2014-11-22
+==================
+- fix Bitbucket support, was broken in 1.1.8 [#20](https://github.com/componentjs/remotes.js/issues/20)
 
 1.1.8 / 2014-11-22
 ==================
