@@ -1,3 +1,7 @@
+1.1.10 / 2014-12-08
+==================
+- fix bug which doesn't resolve `*` dependencies, broken in 1.1.9 [#22](https://github.com/componentjs/remotes.js/issues/22)
+
 1.1.9 / 2014-12-08
 ==================
 - fix Bitbucket support, was broken in 1.1.8 [#20](https://github.com/componentjs/remotes.js/issues/20)
