@@ -1,3 +1,7 @@
+1.2.0 / 2015-03-14
+==================
+- provide `getHash()` for component-downloader and shrinkwrapper
+
 1.1.11 / 2015-01-22
 ==================
 - fix [component#621](https://github.com/componentjs/component/issues/621) - not resolving semver in some cases
