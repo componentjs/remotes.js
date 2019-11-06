@@ -16,7 +16,7 @@
     "component-validator": "^1.0.0",
     "component-consoler": "^2.0.0",
     "graceful-fs": "^2.0.2",
-    "semver": "^2.2.1",
+    "semver": "^6.3.0",
     "cogent": "git://github.com/timaschew/cogent#fix-redirects",
     "co": "^3"
   },
